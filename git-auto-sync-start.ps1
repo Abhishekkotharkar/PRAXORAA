@@ -13,8 +13,8 @@ if (Test-Path -LiteralPath $PidPath) {
 $process = Start-Process -WindowStyle Hidden -FilePath "powershell.exe" -ArgumentList @(
   "-NoProfile",
   "-ExecutionPolicy", "Bypass",
-  "-File", $WatcherPath
-) -PassThru
+  "-File", "`"$WatcherPath`""
+) -WorkingDirectory $ProjectPath -PassThru
 
 Set-Content -LiteralPath $PidPath -Value $process.Id
 Write-Output "Git auto-sync started (PID $($process.Id))."
