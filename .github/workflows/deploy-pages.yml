@@ -2,7 +2,7 @@ name: Deploy PRAXORAA website
 
 on:
   push:
-    branches: [main]
+    branches: [main, build]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./frontend
 
       - name: Deploy
         id: deployment

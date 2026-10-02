@@ -1,6 +1,7 @@
 $ErrorActionPreference = "Continue"
 
-$ProjectPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ScriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ProjectPath = Split-Path -Parent $ScriptDirectory
 $ProjectPath = [IO.Path]::GetFullPath($ProjectPath)
 $GitLogPath = Join-Path $ProjectPath ".git-auto-sync.log"
 $DebounceSeconds = 8
@@ -77,8 +78,13 @@ try {
     git commit -m $message
 
     if ($LASTEXITCODE -eq 0) {
-      git push origin main
-      Write-Log "Committed and pushed changes."
+      $branch = (git branch --show-current).Trim()
+      if ($branch) {
+        git push origin $branch
+        Write-Log "Committed and pushed changes to $branch."
+      } else {
+        Write-Log "Commit succeeded, but no current branch was found for push."
+      }
     } else {
       Write-Log "Commit failed; changes were left in the working tree."
     }
