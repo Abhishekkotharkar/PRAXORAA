@@ -26,3 +26,4 @@ The script creates an `Inquiries` sheet tab and stores the submission time, cont
 ## Automatic Git sync
 
 Run `git-auto-sync-start.ps1` to watch this folder. Changes are committed and pushed to `main` after an 8-second pause. Use `git-auto-sync-stop.ps1` to stop the watcher.
+The watcher runs locally in the background and writes activity to `.git-auto-sync.log`.
