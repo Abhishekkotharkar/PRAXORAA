@@ -9,6 +9,7 @@ $state = [hashtable]::Synchronized(@{
   Dirty = $false
   LastEvent = Get-Date 0
 })
+$lastObservedStatus = ""
 
 function Write-Log {
   param([string]$Message)
@@ -48,6 +49,16 @@ Write-Log "Git auto-sync started for $ProjectPath"
 try {
   while ($true) {
     Start-Sleep -Seconds 2
+
+    # Poll Git as a fallback for new folders or atomic editor saves that do not emit a watcher event.
+    $currentStatus = @(git status --porcelain) -join "`n"
+    if ($currentStatus -ne $lastObservedStatus) {
+      $lastObservedStatus = $currentStatus
+      if ($currentStatus) {
+        $state.Dirty = $true
+        $state.LastEvent = Get-Date
+      }
+    }
 
     if (-not $state.Dirty -or ((Get-Date) - $state.LastEvent).TotalSeconds -lt $DebounceSeconds) {
       continue
