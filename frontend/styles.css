@@ -140,47 +140,16 @@ button {
   gap: 10px;
   color: var(--ink);
   font-family: "Space Grotesk", Arial, sans-serif;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0;
 }
 
 .brand-mark {
-  position: relative;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  overflow: hidden;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  transform: rotate(-22deg);
-}
-
-.brand-mark::before,
-.brand-mark span {
-  position: absolute;
-  display: block;
-  width: 15px;
-  height: 4px;
-  content: "";
-  background: var(--coral);
-}
-
-.brand-mark::before {
-  top: 6px;
-  left: 4px;
-}
-
-.brand-mark span:first-child {
-  top: 12px;
-  left: 4px;
-  background: var(--ink);
-}
-
-.brand-mark span:last-child {
-  top: 18px;
-  left: 4px;
-  background: var(--lime);
+  flex: 0 0 auto;
+  width: 29px;
+  height: 38px;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -2738,6 +2707,11 @@ h2 {
 
   .wordmark {
     font-size: 15px;
+  }
+
+  .brand-mark {
+    width: 23px;
+    height: 30px;
   }
 
   .nav-links {
