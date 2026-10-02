@@ -15,7 +15,7 @@ $wwwRecords = @(Resolve-DnsName $Subdomain -Type CNAME -ErrorAction SilentlyCont
 if ($apexRecords.Count -eq 0) {
   Write-Output "FAIL: No A record found for $Domain"
 } else {
-  Write-Output "A records for $Domain:"
+  Write-Output "A records for ${Domain}:"
   $apexRecords | Select-Object -ExpandProperty IPAddress | ForEach-Object { Write-Output "  $_" }
 }
 
@@ -23,7 +23,7 @@ if ($wwwRecords.Count -eq 0) {
   Write-Output "FAIL: No CNAME record found for $Subdomain"
 } else {
   $targets = @($wwwRecords | Select-Object -ExpandProperty NameHost)
-  Write-Output "CNAME for $Subdomain: $($targets -join ', ')"
+  Write-Output "CNAME for ${Subdomain}: $($targets -join ', ')"
   if ($targets -notcontains $GitHubHost) {
     Write-Output "WARN: Expected $GitHubHost as the CNAME target"
   }
