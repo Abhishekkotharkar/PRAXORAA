@@ -28,6 +28,12 @@ The script creates an `Inquiries` sheet tab and stores the submission time, cont
 Run `scripts/git-auto-sync-start.ps1` to watch this folder. Changes are committed and pushed to the current branch after an 8-second pause. Use `scripts/git-auto-sync-stop.ps1` to stop the watcher.
 The watcher runs locally in the background and writes activity to `.git-auto-sync.log`.
 
+To check a domain before adding it to GitHub Pages, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\check-domain.ps1 -Domain praxoraa.ai
+```
+
 ## Custom domain: praxiraa.com
 
 GitHub Pages must be enabled from the repository's **Settings > Pages** page with **GitHub Actions** selected as the source. Enter `praxiraa.com` under **Custom domain**.
