@@ -1,3 +1,4 @@
+const SPREADSHEET_ID = "17L-YtaDtwQEl4Vbt3AjGwHR8TDOH8AIrGgoaV1Rf0Pw";
 const SHEET_NAME = "Inquiries";
 const HEADERS = [
   "Submitted at",
@@ -21,13 +22,7 @@ function doPost(event) {
   lock.waitLock(10000);
 
   try {
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
-
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(HEADERS);
-      sheet.setFrozenRows(1);
-    }
+    const sheet = getInquirySheet();
 
     const params = event && event.parameter ? event.parameter : {};
     sheet.appendRow([
@@ -47,6 +42,22 @@ function doPost(event) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function getInquirySheet() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = spreadsheet.getSheetByName(SHEET_NAME) || spreadsheet.insertSheet(SHEET_NAME);
+
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    sheet.setFrozenRows(1);
+  }
+
+  return sheet;
+}
+
+function setupInquiriesSheet() {
+  getInquirySheet();
 }
 
 function safeCell(value) {

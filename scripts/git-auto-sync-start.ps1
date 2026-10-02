@@ -1,6 +1,7 @@
-$ProjectPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ScriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ProjectPath = Split-Path -Parent $ScriptDirectory
 $PidPath = Join-Path $ProjectPath ".git-auto-sync.pid"
-$WatcherPath = Join-Path $ProjectPath "watch-git.ps1"
+$WatcherPath = Join-Path $ProjectPath "scripts\watch-git.ps1"
 
 if (Test-Path -LiteralPath $PidPath) {
   $existingPid = Get-Content -LiteralPath $PidPath -ErrorAction SilentlyContinue

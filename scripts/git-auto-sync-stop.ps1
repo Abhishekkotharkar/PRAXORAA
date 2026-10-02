@@ -1,4 +1,5 @@
-$ProjectPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ScriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$ProjectPath = Split-Path -Parent $ScriptDirectory
 $PidPath = Join-Path $ProjectPath ".git-auto-sync.pid"
 
 if (-not (Test-Path -LiteralPath $PidPath)) {
