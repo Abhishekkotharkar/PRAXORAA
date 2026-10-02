@@ -2,7 +2,7 @@ name: Deploy PRAXORAA website
 
 on:
   push:
-    branches: [main, build]
+    branches: [build]
   workflow_dispatch:
 
 permissions:
